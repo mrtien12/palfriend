@@ -1,0 +1,61 @@
+.control {
+	font-weight: 500;
+	display: flex;
+	width: 100%;
+	padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+	color: lightdark(var(--mantine-colors-black), var(--mantine-colors-white));
+	font-size: var(--mantine-font-size-sm);
+	text-decoration: none;
+
+	&:hover {
+		background-color: lightdark(var(--mantine-colors-gray-1), var(--mantine-colors-gray-9));
+		color: lightdark(var(--mantine-colors-white), var(--mantine-colors-black));
+	}
+}
+
+.activeControl {
+	font-weight: 700;
+}
+
+.link {
+	font-weight: 500;
+	text-decoration: none;
+	font-size: var(--mantine-font-size-sm);
+}
+
+.activeLink {
+	background-color: lightdark(var(--mantine-colors-gray-1), var(--mantine-colors-gray-9));
+	color: lightdark(var(--mantine-colors-white), var(--mantine-colors-black));
+}
+
+.buttonLabel {
+	width: 75px;
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+  overflow: hidden;
+}
+
+.chevron {
+	transition: transform 200ms ease;
+}
+.negative {
+	display: flex;
+	align-items: center;
+	background-color: red;
+	padding: 6px;
+	font-size: 12px;
+	border-radius: 5px;
+	color: white;
+
+}
+
+.positive {
+	display: flex;
+	align-items: center;
+	background-color: green;
+	padding: 6px;
+	font-size: 12px;
+	border-radius: 5px;
+	color: white;
+}

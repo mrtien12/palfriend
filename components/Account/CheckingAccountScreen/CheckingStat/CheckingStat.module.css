@@ -1,0 +1,79 @@
+.container {
+  margin-bottom: 20px;
+}
+
+.card {
+  position: relative;
+  overflow: visible;
+  padding: var(--mantine-spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mainTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.mainTitle {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.cardContainer {
+  background: transparent url('../../../../public/card.jpg') no-repeat center;
+  height: 250px;
+  width: 400px;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 20px;
+  }
+}
+
+.title {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 700;
+  width: 100px;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.boxContainer {
+  padding: 20px;
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  background-color: rgb(34 197 94);
+  color: white;
+}
+
+.boxTitle {
+  font-size: 18px;
+}
+
+.boxDescription {
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.title {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-size: 20px;
+}

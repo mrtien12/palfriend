@@ -1,0 +1,8 @@
+.card {
+  position: relative;
+  overflow: visible;
+  padding: var(--mantine-spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

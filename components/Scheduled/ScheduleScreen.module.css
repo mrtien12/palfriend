@@ -1,0 +1,26 @@
+.expensebutton {
+    position: absolute;
+    bottom: 10px;  
+    right: 15px;
+}
+
+.incomebutton {
+    position: absolute;
+    bottom: 70px;  
+    right: 15px;
+}
+
+.transferbutton {
+    position: absolute;
+    bottom: 130px;  
+    right: 15px;
+}
+
+
+.settingbutton {
+    position: absolute;
+    bottom: 190px;  
+    right: 15px;
+    background-color: gray
+
+}

@@ -1,0 +1,47 @@
+.itemLabel {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .radioOptionContainer {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  
+  .radioOption {
+    label {
+      padding-inline-start: 5px;
+    }
+  }
+  
+  .paperContainer {
+    padding: 20px 0px;
+    margin: auto;
+      justify-content: center;
+      display: flex;
+      width: 500px;
+  }
+  
+  .formContainer {
+      display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .multiSelect {
+    min-width: 200px;
+  }
+  
+  .datePicker {
+    label {
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+  
+  .resultContainer {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+  }

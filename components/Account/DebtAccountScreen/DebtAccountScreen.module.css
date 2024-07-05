@@ -1,0 +1,46 @@
+.expensebutton {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
+.incomebutton {
+  position: absolute;
+  bottom: 70px;
+  right: 15px;
+}
+
+.transferbutton {
+  position: absolute;
+  bottom: 130px;
+  right: 15px;
+}
+
+.settingbutton {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
+.buttonContainer {
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  z-index: 10;
+}
+
+.card {
+  position: relative;
+  overflow: visible;
+  padding: var(--mantine-spacing-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.removebutton {
+  position: absolute;
+  bottom: 70px;
+  right: 15px;
+}

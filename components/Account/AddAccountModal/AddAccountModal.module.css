@@ -1,0 +1,18 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.basicInfo {
+  display: flex;
+  gap: 10px;
+}
+
+.nameWrapper {
+  width: 227px;
+}
+
+.amountWrapper {
+  width: 110px;
+}
