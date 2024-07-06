@@ -11,6 +11,8 @@ import classes from './DebtAccountScreen.module.css';
 import DebtState from './DebtState/DebtState';
 import EditDebtModal from './EditDebtAccount/EditDebtAccount';
 import DeleteAccountModal from '@/components/Account/DeleteAccountModal/DeleteAccount';
+import DeleteTransactionModal from '@/components/Transaction/TransactionTable/DeleteTransactionModal/DeleteTransactionModal';
+import EditExpenseModal from '@/components/Transaction/EditExpenseModal/EditExpenseModal';
 
 interface DebtAccountScreenProps {
   id: string;
@@ -26,7 +28,7 @@ export default function DebtAccountScreen({ id }: DebtAccountScreenProps) {
   const [selectedTransaction, setSelectedTransaction] =
     useState<Transaction | null>(null);
   const [openedDelete, Deletehandler] = useDisclosure(false);
-  const [openedTransferEdit, EditTransferhandler] = useDisclosure(false);
+  const [openedExpenseEdit, EditExpensehandler] = useDisclosure(false);
   const [openedRemove, RemoveHandler] = useDisclosure(false);
 
   const router = useRouter();
@@ -64,8 +66,8 @@ export default function DebtAccountScreen({ id }: DebtAccountScreenProps) {
     );
     if (transactionToEdit) {
       setSelectedTransaction(transactionToEdit);
-      if (transactionToEdit.type === '2') {
-        EditTransferhandler.open();
+      if (transactionToEdit.type === '0') {
+        EditExpensehandler.open();
       }
     }
     console.log(transactionToEdit);
@@ -99,6 +101,26 @@ export default function DebtAccountScreen({ id }: DebtAccountScreenProps) {
    
         />
       }
+
+      {selectedTransaction && (
+        <DeleteTransactionModal
+          opened={openedDelete}
+          onClose={Deletehandler.close}
+          accountId={id}
+          transaction={selectedTransaction}
+        />
+      )}
+
+
+      {selectedTransaction && selectedTransaction.type === '0' && (
+        <EditExpenseModal
+          opened={openedExpenseEdit}
+          onClose={EditExpensehandler.close}
+          accountId={id}
+          transaction={selectedTransaction}
+          onUpdate={handleTransactionUpdate}
+        />
+      )}
       <div className={classes.buttonContainer}>
         <ActionIcon
           className={classes.settingbutton}
