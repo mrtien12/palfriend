@@ -14,7 +14,7 @@ import DepositChart from './DepositChart/DepositChart';
 import DepositState from './DepositState/DepositState';
 import EditDepositModal from './EditDepositModal/EditDepositModal';
 import DeleteAccountModal from '@/components/Account/DeleteAccountModal/DeleteAccount';
-
+import EditIncomeModal from '@/components/Transaction/EditExpenseModal/EditIncomeModal';
 import DeleteTransactionModal from '@/components/Transaction/TransactionTable/DeleteTransactionModal/DeleteTransactionModal';
 interface DepositAccountScreenProps {
   id: string;
@@ -34,6 +34,7 @@ export default function DepositAccountScreen({
   const [openedDelete, Deletehandler] = useDisclosure(false);
   const [openedTransferEdit, EditTransferhandler] = useDisclosure(false);
   const [openedRemove, RemoveHandler] = useDisclosure(false);
+  const [openedIncomeEdit, EditIncomehandler] = useDisclosure(false);
 
   const router = useRouter();
 
@@ -72,6 +73,9 @@ export default function DepositAccountScreen({
       setSelectedTransaction(transactionToEdit);
       if (transactionToEdit.type === '2') {
         EditTransferhandler.open();
+      }
+      else if (transactionToEdit.type === '1') {
+        EditIncomehandler.open();
       }
     }
     console.log(transactionToEdit);
@@ -134,6 +138,16 @@ export default function DepositAccountScreen({
           opened={openedTransferEdit}
           onClose={EditTransferhandler.close}
           fromAccount={data.id}
+          transaction={selectedTransaction}
+          onUpdate={handleTransactionUpdate}
+        />
+      )}
+
+      {selectedTransaction && selectedTransaction.type === '1' && (
+        <EditIncomeModal
+          opened={openedIncomeEdit}
+          onClose={EditIncomehandler.close}
+          accountId={id}
           transaction={selectedTransaction}
           onUpdate={handleTransactionUpdate}
         />
