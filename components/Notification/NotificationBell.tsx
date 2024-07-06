@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { ActionIcon, Badge, Popover, Group, Alert, Text, Stack, ScrollArea } from '@mantine/core';
+import { ActionIcon, Badge, Popover, Alert, Text, Stack, ScrollArea } from '@mantine/core';
 import { IconBell } from '@tabler/icons-react';
 import { NotificationApp } from '@/types/notification';
-import useNotifications  from '@/hooks/useNotification';
+import useNotifications from '@/hooks/useNotification';
 import classes from './NotificationBell.module.css';
-
 
 const NotificationBell: React.FC = () => {
     const { notifications, removeNotification } = useNotifications();
@@ -57,8 +56,8 @@ const NotificationBell: React.FC = () => {
                             notifications.map((notification, index) => (
                                 <Alert
                                     key={index}
-                                    title={notification.status === 'success' ? 'Success' : 'Error'}
-                                    color={notification.status === 'success' ? 'green' : 'red'}
+                                    title={getTitle(notification.status)}
+                                    color={getColor(notification.status)}
                                     withCloseButton
                                     mt="md"
                                     onClose={() => handleRemoveNotification(notification.id)}
@@ -72,6 +71,34 @@ const NotificationBell: React.FC = () => {
             </Popover.Dropdown>
         </Popover>
     );
+};
+
+// Helper function to map status to Mantine colors
+const getColor = (status: string): string => {
+    switch (status) {
+        case 'success':
+            return 'green';
+        case 'error':
+            return 'red';
+        case 'warning':
+            return 'orange'; // Adjust as per your Mantine color scheme
+        default:
+            return 'gray';
+    }
+};
+
+// Helper function to set Alert title based on status
+const getTitle = (status: string): string => {
+    switch (status) {
+        case 'success':
+            return 'Thành công';
+        case 'error':
+            return 'Lỗi';
+        case 'warning':
+            return 'Cảnh báo'; // Adjust based on your requirements
+        default:
+            return 'Thông báo';
+    }
 };
 
 export default NotificationBell;

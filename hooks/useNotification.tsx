@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 
 export interface NotificationApp {
     text: string;
-    status: 'success' | 'error';
+    status: 'success' | 'error' | 'warning';
     time: Date;
     type: string;
     email: string;

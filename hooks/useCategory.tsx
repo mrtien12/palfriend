@@ -8,12 +8,15 @@ import { Category } from "@/types/category";
 export default function useCategory(type: string) {
     const { data: session } = useSession();
     const [categories, setCategories] = useState<string[]>([]);
-
     useEffect(() => {
+        if (type === "2"){
+            setCategories([])
+            return;
+        }
         if (session?.user?.email) {
             const q = query(
                 collection(db, "users", session.user.email, "categories"),
-                where("type", "==", type )
+                where("type", "==", type)
             );
 
             const unsubscribe = onSnapshot(q, (querySnapshot) => {

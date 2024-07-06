@@ -35,13 +35,16 @@ export default function AddSchedulenModal({
       account: '',
       toAccount: '', // For transfers
       category: '',
-      date: new Date(),
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000),
       memo: '',
       type: type,
       frequency: '4', // Default to 'One Time'
       transferid: '',
     },
     validate: {
+      account: (value) => (value ? null : 'Account is required'),
+      amount: (value) => (value ? null : 'Amount is required'),
+      category: (value) => (value || type === '2' ? null : 'Category is required'),
       toAccount: (value, values) =>
         type === '2' && value === values.account
           ? 'To account must be different from from account'
@@ -228,7 +231,7 @@ export default function AddSchedulenModal({
             label="Ngày gần nhất"
             placeholder="Date"
             required
-            minDate={new Date()}
+            minDate={new Date(Date.now() + 24 * 60 * 60 * 1000)}
             {...form.getInputProps('date')}
           />
           <Select

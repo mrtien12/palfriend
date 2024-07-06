@@ -31,10 +31,8 @@ export default function EditScheduleTransactionModal({
       redirect('/signin');
     },
   });
-
   const accounts = useAccounts();
   const category = useCategory(transaction ? transaction.type : '0');
-
   const form = useForm({
     initialValues: {
       id: transaction ? transaction.id : '',
@@ -45,6 +43,7 @@ export default function EditScheduleTransactionModal({
       date: transaction ? transaction.date : new Date(),
       memo: transaction ? transaction.memo : '',
       frequency: transaction ? transaction.frequency : '4',
+      type: transaction ? transaction.type : '0',
     },
   });
 
@@ -55,10 +54,11 @@ export default function EditScheduleTransactionModal({
         amount: transaction.amount,
         account: transaction.account,
         toAccount: transaction.toAccount || '',
-        category: transaction.category,
+        category: transaction.category ,
         date: transaction.date,
         memo: transaction.memo,
         frequency: transaction.frequency,
+        type: transaction.type,
       });
     }
   }, [transaction]);
@@ -88,10 +88,7 @@ export default function EditScheduleTransactionModal({
       ),
       updatedTransaction
     );
-    console.log(updatedTransaction);
     onUpdate(updatedTransaction);
-    console.log(updatedTransaction);
-
     notifications.show({
       title: 'Success',
       message: 'Giao dịch dự chi đã được cập nhật',
