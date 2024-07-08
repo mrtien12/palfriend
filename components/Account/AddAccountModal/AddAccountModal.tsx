@@ -195,9 +195,9 @@ export default function AddAccountModal({
                                 {...form.getInputProps('name')}
                             />
                             <NumberInput
-                                label={type === '3' ? "Số dư còn lại" : "SỐ tiền"} 
+                                label={type === '3' ? "Số dư còn lại" : "Số tiền"} 
                                 required
-                                placeholder="CHọn số tiền"
+                                placeholder="Chọn số tiền"
                                 classNames={{ wrapper: classes.amountWrapper }}
                                 {...form.getInputProps('amount')}
                             />

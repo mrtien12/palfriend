@@ -10,7 +10,7 @@ export default function BalanceSummary({ balance, debt }: BalanceSummaryProps) {
   return (
     <div className={classes.container}>
       <Box className={classes.boxContainer}>
-        <Text className={classes.title}>Tông quan số dư </Text>
+        <Text className={classes.title}>Tổng quan số dư </Text>
         <div className={classes.item}>
           <Text style={{ fontWeight: 700, width: '70px' }}>Số dư: </Text>
           <Text>
