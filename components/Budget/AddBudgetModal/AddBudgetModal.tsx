@@ -39,7 +39,7 @@ export default function AddBudgetModal({
   const categories = useCategory('0');
   const accounts = useAccounts();
   const accountList = accounts
-    .filter((account) => account.type === '0')
+    .filter((account) => account.type === '0' || account.type === '3')
     .map((account) => ({ label: account.name, value: account.id }));
 
   const form = useForm({
