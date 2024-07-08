@@ -50,7 +50,7 @@ export default function LoggedinLayout({ children }: Props) {
   );
   const navLinks: NavItem[] = [
     {
-      label: 'Ngân sách',
+      label: 'Tiêu dùng',
       icon: IconComponents,
       initiallyOpened: true,
       links: budgetAccounts.map((account) => ({
