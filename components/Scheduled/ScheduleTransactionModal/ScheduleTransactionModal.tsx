@@ -85,7 +85,7 @@ export default function AddSchedulenModal({
     }));
 
   const expenseOptions = accounts
-    .filter((account) => account.type === '0' || account.type === '3') // Only include debt accounts for transfer in
+    .filter((account) => account.type === '0' ) // Only include debt accounts for transfer in
     .map((account) => ({
       value: account.id,
       label: account.name,
