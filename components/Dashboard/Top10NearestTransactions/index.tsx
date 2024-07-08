@@ -79,7 +79,7 @@ const Top10NearestTransactions = ({
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    height: '50px',
+                    height: '80px',
                   }}
                 >
                   <div
