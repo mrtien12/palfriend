@@ -244,11 +244,11 @@ export default function EditBudgetModal({
               required
             />
           )}
-          <Checkbox
+          {/* <Checkbox
             label="Lập lại hạn mức"
             checked={checked}
             onChange={(event) => setChecked(event.currentTarget.checked)}
-          />
+          /> */}
           <Button type="submit">Cập nhật hạn mức</Button>
         </form>
       </Modal>

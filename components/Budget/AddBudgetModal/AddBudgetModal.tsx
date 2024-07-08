@@ -223,11 +223,11 @@ export default function AddBudgetModal({
               required
             />
           )}
-          <Checkbox
+          {/* <Checkbox
             label="Repeat this budget"
             checked={checked}
             onChange={(event) => setChecked(event.currentTarget.checked)}
-          />
+          /> */}
           <Button type="submit">Submit</Button>
         </form>
       </Modal>

@@ -64,12 +64,12 @@ export function BudgetInfo({
       />
 
       <Group justify="space-between" mt="md">
-        <Text fz="sm">$0.00</Text>
-        <Text fz="sm">${budget.amount}</Text>
+        <Text fz="sm">0 VND</Text>
+        <Text fz="sm">{budget.amount}VND</Text>
       </Group>
 
       <Group justify="space-between">
-        <Text>Số tiền còn lại: ${budget.amount - budget.currentAmount}</Text>
+        <Text>Số tiền còn lại: {budget.amount - budget.currentAmount}VND</Text>
         <Group>
           <ActionIcon onClick={() => handleEdit(budget.id)}>
             <IconEdit />

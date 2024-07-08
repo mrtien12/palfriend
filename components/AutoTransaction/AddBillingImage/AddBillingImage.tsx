@@ -295,7 +295,7 @@ export default function AddBillingImageModal({
   return (
     <Modal
       opened={opened}
-      onClose={onClose}
+      onClose={handleClose}
       title="Thêm chi tiêu qua hóa đơn"
       size="md"
     >
