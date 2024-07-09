@@ -14,6 +14,10 @@ import { createToolCallingAgent, AgentExecutor } from "langchain/agents";
 export async function POST(request: NextRequest) {
     const input = await request.json();
     
+    if (!input.messages || input.messages.trim() === "") {
+        return NextResponse.json({ response: "Input seems to be blank, please input something." });
+    }
+
     const groq = new ChatGroq(
         {
             apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,

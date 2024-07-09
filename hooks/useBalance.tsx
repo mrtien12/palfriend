@@ -16,9 +16,9 @@ export default function useBalance(): Balance {
     let totalDebt = 0;
 
     accounts.forEach(account => {
-      if (account.type === '0' || account.type === '1') {
+      if (account.type === '0' || account.type === '1' || (account.type === '3' && account.amount > 0)) {
         totalBalance += account.amount;
-      } else if (account.type === '2') {
+      } else if (account.type === '2' || (account.type === '3' && account.amount < 0)) {
         totalDebt += account.amount;
       }
     });
