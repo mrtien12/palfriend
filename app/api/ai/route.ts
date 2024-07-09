@@ -511,7 +511,7 @@ export async function POST(request: NextRequest) {
 
         const res = await chatConversationChain.invoke({'input':input.messages});
         
-        // const final = JSON.parse(res.output)
+        
         return NextResponse.json(res.output);
     }
 }
