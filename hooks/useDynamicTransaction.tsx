@@ -54,7 +54,8 @@ export default function useDynamicTransactions({ query1 }: UseDynamicTransaction
             }
 
             if (query1.category) {
-                conditions.push(where('category','==',query1.category));
+                conditions.push(where('category','>=',query1.category));
+                conditions.push(where('category','<',query1.category + '\uf8ff'))
             }
 
             if (query1.limit) {

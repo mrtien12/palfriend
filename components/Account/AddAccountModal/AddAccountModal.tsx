@@ -12,6 +12,7 @@ import { notifications } from '@mantine/notifications';
 import { addMonths, endOfMonth, isLastDayOfMonth, isBefore } from 'date-fns';
 import classes from './AddAccountModal.module.css';
 import { calculateAmortization } from '@/utils/calculateAmortization';
+import { addDays } from 'date-fns';
 
 interface AddAccountModalProps {
     opened: boolean;
@@ -53,7 +54,7 @@ export default function AddAccountModal({
 
                 return calculatedDate;
             } else {
-                return values.startDate; // No next date for demand deposits
+                return addDays(values.startDate,1); // No next date for demand deposits
             }
         }
         return null;

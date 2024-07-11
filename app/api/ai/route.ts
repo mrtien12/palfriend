@@ -493,7 +493,8 @@ export async function POST(request: NextRequest) {
               }}
           
             If some field was lacked then dont include it in the json. And you only return JSON file not anything else
-            ` 
+            User gonna be Vietnamese so you need to dont change the language of the input or the upper or lower in character just parsing it as it is
+            `
         
         ],["placeholder", "{chat_history}"],
             ["human", "{input}"],
