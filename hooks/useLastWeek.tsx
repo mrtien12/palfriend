@@ -18,7 +18,7 @@ export default function useLastWeek(): DailyData[] {
     if (session.data?.user?.email) {
       const endDate = new Date();
       const startDate = new Date();
-      startDate.setDate(endDate.getDate() - 6);
+      startDate.setDate(endDate.getDate() - 7);
 
       const q = query(
         collection(db, 'users', session?.data?.user?.email as string, 'transactions'),
