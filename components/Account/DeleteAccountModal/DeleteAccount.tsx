@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import useTransactionByAccount from '@/hooks/useTransactionByAccount';
-import { deleteDoc, doc, getDocs, query, where, collection, QuerySnapshot, DocumentData, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, getDocs, query, where, collection,getDoc, QuerySnapshot, DocumentData, updateDoc } from 'firebase/firestore';
 import { notifications } from '@mantine/notifications';
 import { db } from '@/firebase';
 
@@ -44,6 +44,18 @@ export default function DeleteAccountModal({
 
     for (const transaction of transactions) {
       await deleteDoc(doc(db, 'users', session.data?.user?.email as string, 'transactions', transaction.id));
+    }
+
+    const accountRef = doc(db, 'users', session.data?.user?.email as string, 'accounts', accountId);
+
+    const accountData = await getDoc(accountRef);
+
+    if (accountData.data()?.type === '2') {
+      const associatedAccount = await getDoc(doc(db, 'users', session.data?.user?.email as string, 'accounts', accountData.data()?.associated));
+      const associatedAccountData = associatedAccount.data();
+      const newAmount = associatedAccountData?.amount - Math.abs(accountData.data()?.amount);
+      await updateDoc(doc(db, 'users', session.data?.user?.email as string, 'accounts', accountData.data()?.associated), { amount: newAmount});
+      
     }
 
     await deleteDoc(doc(db, 'users', session.data?.user?.email as string, 'accounts', accountId));

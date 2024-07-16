@@ -19,7 +19,6 @@ interface DebtAccountScreenProps {
 }
 
 export default function DebtAccountScreen({ id }: DebtAccountScreenProps) {
-  console.log(id);
   const data = useDebtStat(id);
   const transactions = useTransactionByAccount(id);
 

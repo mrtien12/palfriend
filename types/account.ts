@@ -23,7 +23,7 @@ export interface DepositAccount extends Account {
 }
 
 export interface DebtAccount extends Account {
-
+    associated: string,
     principal: number
     interestRate: number;
     startDate: Date;

@@ -2,7 +2,7 @@
 import { Modal, Button, Select, NumberInput, TextInput } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
-import { collection, addDoc, where, getDocs, query } from 'firebase/firestore';
+import { collection, addDoc, where, doc, getDoc,updateDoc, getDocs, query } from 'firebase/firestore';
 import { useState } from 'react';
 import { DatePicker, DatePickerInput } from '@mantine/dates';
 import { useSession } from 'next-auth/react';
@@ -13,6 +13,7 @@ import { addMonths, endOfMonth, isLastDayOfMonth, isBefore } from 'date-fns';
 import classes from './AddAccountModal.module.css';
 import { calculateAmortization } from '@/utils/calculateAmortization';
 import { addDays } from 'date-fns';
+import useAccounts from '@/hooks/useAccount';
 
 interface AddAccountModalProps {
     opened: boolean;
@@ -89,7 +90,13 @@ export default function AddAccountModal({
             // months: (value) => (value < 0 ? 'Months cannot be negative' : null),
         },
     });
-
+    const accounts = useAccounts();
+    const accountOption = accounts.filter(
+        (account) => account.type === '0'
+    ).map((account) => ({
+        value: account.id,
+        label: account.name,
+      }))
     const [type, setType] = useState('0');
     const handleAddAccount = async (values: any) => {
         values.email = session.data?.user?.email;
@@ -99,6 +106,14 @@ export default function AddAccountModal({
             values.principal = values.amount;
             values.monthly_payment = calculateAmortization(values.principal,values.interestRate,values.months);
             values.full = false;
+
+            //add positive amount to associated account 
+
+            const associatedAccountRef = doc(db, 'users', session.data?.user?.email as string, 'accounts', values.associated);
+            const associatedAccount = await getDoc(associatedAccountRef);
+            const associatedAccountData = associatedAccount.data();
+            const newAmount = associatedAccountData?.amount + Math.abs(values.amount);
+            await updateDoc(associatedAccountRef, { amount: newAmount });
         }
         if (values.type === '1') {
             values.settlementDate = handleNextSettlementDate(values);
@@ -338,6 +353,14 @@ export default function AddAccountModal({
                                             value: '32',
                                         },
                                     ]}
+                                />
+
+                                <Select 
+                                    label="Tài khoản thụ hưởng"
+                                    required
+                                    placeholder="Chọn tài khoản thụ hưởng"
+                                    {...form.getInputProps('associated')}
+                                    data={accountOption}
                                 />
                             </>
                         )}

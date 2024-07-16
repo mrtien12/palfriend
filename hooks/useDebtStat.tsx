@@ -35,6 +35,7 @@ export default function useDebtStat(accountid: string) {
                         monthly_payment: data.monthly_payment,
                         full: data.full,
                         email: data.email,
+                        associated: data.associated
                     });
                 }
             }
