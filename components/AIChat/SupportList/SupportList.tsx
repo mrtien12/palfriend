@@ -74,7 +74,7 @@ export default function SupportList({transactions, opened, onClose}: SupportList
 
     return (
         <>
-            <Modal opened={opened} onClose={onClose} size="lg" title="Transaction List">
+            <Modal opened={opened} onClose={onClose} size="lg" title="Danh sách giao dịch">
             <Table>
                 <Table.Thead>
                     <Table.Tr>

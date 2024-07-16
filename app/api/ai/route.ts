@@ -515,4 +515,72 @@ export async function POST(request: NextRequest) {
         
         return NextResponse.json(res.output);
     }
+
+    if (input.type == "/rate"){
+        const memory = new BufferMemory({
+            chatHistory: chatHistory,
+            memoryKey: "chat_history",
+            returnMessages: true,
+            inputKey: "input",
+            
+            
+        });
+
+
+        const prompt = ChatPromptTemplate.fromMessages([
+            ["system",`
+            You are my transaction information extractor for a query. You will receive a user query in natural language and return the extracted constraints as a JSON object.
+            The constraints to extract include:
+                bank: Name of the bank that have the interest rate
+                orderDirection: The direction to order the results (asc or desc).
+                orderBy: The field to order the results by.
+                limit: The maximum banks to return 
+                type : "online" or "offline" with the online as the document online that will be the user will send the money online and offline will be the user will send the money offline
+            You must handle cases where there is no data by returning an appropriate JSON response and with the input of the user you dont change the upper and lower of the input, make it stay the same
+            The transaction schema is as follows:
+              {{
+                bank: "string",
+                orderBy: "interest1","interest3","interest6","interest9","interest12","interest18","interest24"
+                orderDirection: "asc",
+                limit: "number",
+                type: "string"
+              }}
+            Example response if constraints are extracted successfully:
+              {{
+                bank : "ABBank"
+                orderDirection: "asc",
+                orderBy: "interest1",
+                limit: "10",
+                type: "online"
+
+              }}
+            Example response if no constraints are extracted:
+              {{
+                "error": "No valid query parameters extracted."
+              }}
+          
+            If some field was lacked then dont include it in the json. And you only return JSON file not anything else
+            User gonna be Vietnamese so you need to dont change the language of the input or the upper or lower in character just parsing it as it is
+            `
+        
+        ],["placeholder", "{chat_history}"],
+            ["human", "{input}"],
+            ["placeholder", "{agent_scratchpad}"],
+            
+        ])
+
+        const chatConversationChain = new ConversationChain({
+            llm: groq,
+            prompt: prompt,
+            verbose: true,
+            memory: memory,
+            outputKey: "output",
+          });
+
+        const res = await chatConversationChain.invoke({'input':input.messages});
+        
+        
+        return NextResponse.json(res.output);
+
+    }
 }

@@ -16,7 +16,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { RiRobot3Line } from 'react-icons/ri';
 import { FaRegUser } from 'react-icons/fa';
 import useDynamicTransactions from '@/hooks/useDynamicTransaction';
+import useDynamicInterestRate from '@/hooks/useDynamicInterestRate';
 import SupportList from '../SupportList/SupportList';
+import InterestList from '../InterestList/InterestList';
 interface AIChatProps {
   opened: boolean;
   close: () => void;
@@ -30,12 +32,15 @@ interface Message {
 export default function AIChatWrapper({ opened, close }: AIChatProps) {
   const viewport = useRef<HTMLDivElement>(null);
   const [message, setMessage] = useState('');
-  const [openedSupport, SupportHandler] = useDisclosure()
+  const [openedSupport, SupportHandler] = useDisclosure();
+  const [openedRate, RateHandler] = useDisclosure();
   const [type, setType] = useState('/chat');
   const [sessionId, setSessionId] = useState(uuidv4());
   const [messages, setMessages] = useState<Message[]>([]);
   const [queryParams, setQueryParams] = useState({});
+  const [queryParams2, setQueryParams2] = useState({});
   const transactions = useDynamicTransactions({ query1: queryParams });
+  const options = useDynamicInterestRate({ query2: queryParams2 });
 
   useEffect(() => {
     if (type === '/support' && transactions.length > 0) {
@@ -44,9 +49,16 @@ export default function AIChatWrapper({ opened, close }: AIChatProps) {
     }
   }, [transactions, type]);
 
+  useEffect(() => {
+    if (type === '/rate' && options.length > 0) {
+      RateHandler.open();
+      console.log(options);
+      // Additional logic to handle options data
+    }
+  }, [options, type]);
   const resetTransaction = () => {
     setQueryParams({});
-  }
+  };
   const scrollToBottom = () =>
     viewport.current!.scrollTo({
       top: viewport.current!.scrollHeight,
@@ -64,7 +76,7 @@ export default function AIChatWrapper({ opened, close }: AIChatProps) {
     setMessages(newDataMessage);
     const dataMessage = message;
     setMessage('');
-    
+
     const res = await fetch(`/api/ai`, {
       method: 'POST',
       headers: {
@@ -78,20 +90,33 @@ export default function AIChatWrapper({ opened, close }: AIChatProps) {
     });
     const data = await res.json();
     const aiMessage: Message = { user: 'ai', text: data.response };
-    if (data && type !== '/support') {
+    if (data && type !== '/support' && type !== '/rate') {
       const newMessage = [...newDataMessage, aiMessage];
       setMessages(newMessage);
     }
     if (data && type === '/support') {
-      const aiMessage: Message = { user: 'ai', text: 'Please wait for a moment, I will provided you with the information that you need' };
+      const aiMessage: Message = {
+        user: 'ai',
+        text: 'Làm ơn chờ một chút để hệ thống xử lý yêu cầu của bạn',
+      };
       const newMessage = [...newDataMessage, aiMessage];
       setMessages(newMessage);
-       const input = JSON.parse(data)
-       setQueryParams(input)
+      const input = JSON.parse(data);
+      setQueryParams(input);
     }
+
+    if (data && type === '/rate') {
+      const aiMessage: Message = {
+        user: 'ai',
+        text: 'Làm ơn chờ một chút để hệ thống xử lý yêu cầu của bạn',
+      };
+      const newMessage = [...newDataMessage, aiMessage];
+      setMessages(newMessage);
+      const input = JSON.parse(data);
+      setQueryParams2(input);
+    }
+
     scrollToBottom();
-    // const data = await res.json();
-    // console.log(data)
   };
   useEffect(() => {
     if (opened) {
@@ -109,7 +134,7 @@ export default function AIChatWrapper({ opened, close }: AIChatProps) {
         sessionId: sessionId,
       }),
     });
-    
+
     setMessage('');
     setMessages([]);
     resetTransaction();
@@ -133,11 +158,20 @@ export default function AIChatWrapper({ opened, close }: AIChatProps) {
     setType(type);
   };
   return (
-    
     <>
       {transactions && type == '/support' && (
         <>
-          <SupportList transactions={transactions} opened={openedSupport} onClose={SupportHandler.close} />
+          <SupportList
+            transactions={transactions}
+            opened={openedSupport}
+            onClose={SupportHandler.close}
+          />
+        </>
+      )}
+
+      {options && type == '/rate' && (
+        <>
+          <InterestList options={options} opened={openedRate} onClose={RateHandler.close} />
         </>
       )}
       <Dialog
@@ -191,7 +225,8 @@ export default function AIChatWrapper({ opened, close }: AIChatProps) {
               { value: '/finance', label: 'finance' },
               { value: '/exchange', label: 'exchange' },
               { value: '/info', label: 'info' },
-              { value: '/support', label: 'support'}
+              { value: '/support', label: 'support' },
+              { value: '/rate', label: 'rate' },
             ]}
             defaultValue="/chat"
           />
