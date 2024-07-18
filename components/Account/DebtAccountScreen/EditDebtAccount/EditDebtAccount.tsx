@@ -24,6 +24,7 @@ export default function EditDebtModal({
 }: EditDebtModalProps) {
   const session = useSession();
   const account1 = useAccounts();
+  const accounts = useAccounts();
   const form = useForm({
     initialValues: {
       name: account?.name,
@@ -58,7 +59,7 @@ export default function EditDebtModal({
   if (!account) return null;
 
   const accountNames = account1.map((account1) => account1.name);
-  const accounts = useAccounts();
+  
   const accountOption = accounts
     .filter((account) => account.type === '0')
     .map((account) => ({
